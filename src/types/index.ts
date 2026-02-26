@@ -26,6 +26,7 @@ export interface Sale {
   seller_id: number
   value: number
   commission: number
+  commission_rate: number
   sale_date: string
   created_at: string
   updated_at: string

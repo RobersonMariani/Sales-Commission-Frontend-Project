@@ -89,6 +89,7 @@ onMounted(async () => {
             <th class="px-6 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-gray-400">Vendedor</th>
             <th class="px-6 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-gray-400">Data</th>
             <th class="px-6 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-400">Valor</th>
+            <th class="px-6 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-400">Taxa</th>
             <th class="px-6 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-400">Comissão</th>
           </tr>
         </thead>
@@ -111,6 +112,9 @@ onMounted(async () => {
             <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-gray-900">
               {{ formatCurrency(sale.value) }}
             </td>
+            <td class="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
+              {{ sale.commission_rate }}%
+            </td>
             <td class="whitespace-nowrap px-6 py-4 text-right">
               <span class="inline-flex rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
                 {{ formatCurrency(sale.commission) }}
@@ -118,7 +122,7 @@ onMounted(async () => {
             </td>
           </tr>
           <tr v-if="saleStore.sales.length === 0">
-            <td colspan="5" class="px-6 py-16 text-center">
+            <td colspan="6" class="px-6 py-16 text-center">
               <svg class="mx-auto h-10 w-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
