@@ -1,5 +1,5 @@
 services:
-  # Desenvolvimento com hot-reload
+  # Desenvolvimento com hot-reload (padrão)
   dev:
     image: node:22-alpine
     container_name: sales-frontend-dev
@@ -14,10 +14,8 @@ services:
       - VITE_API_URL=http://localhost:8000
     networks:
       - sales-network
-    profiles:
-      - dev
 
-  # Produção com Nginx
+  # Produção com Nginx (docker compose --profile prod up)
   frontend:
     build:
       context: .
