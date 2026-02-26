@@ -63,3 +63,20 @@ export interface PaginatedResponse<T> {
 export interface MessageResponse {
   message: string
 }
+
+export interface SalesReport {
+  total_sales: number
+  total_value: number
+  total_commission: number
+  average_value: number
+  average_commission: number
+}
+
+export interface SellerSalesReport {
+  seller_id: number
+  seller_name: string
+  seller_email: string
+  total_sales: number
+  total_value: number
+  total_commission: number
+}
