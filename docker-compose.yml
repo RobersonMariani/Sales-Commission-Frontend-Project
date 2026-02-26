@@ -21,7 +21,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: .docker/Dockerfile
       target: production
     container_name: sales-frontend
     restart: unless-stopped
