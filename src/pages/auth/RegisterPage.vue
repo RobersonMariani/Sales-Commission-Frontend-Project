@@ -62,8 +62,10 @@ async function handleSubmit(): Promise<void> {
 <template>
   <div class="flex min-h-screen">
     <div class="hidden w-1/2 lg:flex lg:flex-col lg:justify-center lg:bg-gray-900 lg:px-16">
-      <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-600 text-xl font-bold text-white shadow-2xl shadow-primary-600/40">
-        SC
+      <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-600 text-white shadow-2xl shadow-primary-600/40">
+        <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2 20h20M5 20V10m5 10V4m5 16v-8m5 8V8" />
+        </svg>
       </div>
       <h2 class="mt-6 text-3xl font-bold text-white">Sales Commission</h2>
       <p class="mt-3 max-w-sm text-base text-gray-400">
@@ -74,8 +76,10 @@ async function handleSubmit(): Promise<void> {
     <div class="flex w-full items-center justify-center px-6 lg:w-1/2">
       <div class="w-full max-w-sm">
         <div class="mb-8 lg:hidden">
-          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-600 text-lg font-bold text-white shadow-lg">
-            SC
+          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-600 text-white shadow-lg">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2 20h20M5 20V10m5 10V4m5 16v-8m5 8V8" />
+            </svg>
           </div>
         </div>
 
