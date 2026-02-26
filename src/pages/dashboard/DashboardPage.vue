@@ -2,10 +2,16 @@
 import { onMounted, computed, ref } from 'vue'
 import { useSellerStore } from '@/stores/seller'
 import { reportService } from '@/services/reportService'
-import type { SalesReport } from '@/types'
+import type { DailySalesReport, SalesReport, SellerSalesReport } from '@/types'
+import AppCard from '@/components/ui/AppCard.vue'
+import SalesLineChart from '@/components/charts/SalesLineChart.vue'
+import SellerBarChart from '@/components/charts/SellerBarChart.vue'
+import CommissionDoughnutChart from '@/components/charts/CommissionDoughnutChart.vue'
 
 const sellerStore = useSellerStore()
 const summary = ref<SalesReport | null>(null)
+const dailySales = ref<DailySalesReport[]>([])
+const sellerReports = ref<SellerSalesReport[]>([])
 const loading = ref(true)
 
 function formatCurrency(value: number): string {
@@ -54,11 +60,15 @@ const cards = computed(() => {
 
 onMounted(async () => {
   loading.value = true
-  const [, data] = await Promise.all([
+  const [, summaryData, daily, sellers] = await Promise.all([
     sellerStore.fetchSellers(1, 1),
     reportService.getSalesSummary(),
+    reportService.getDailySales(),
+    reportService.getSalesBySeller(),
   ])
-  summary.value = data
+  summary.value = summaryData
+  dailySales.value = daily
+  sellerReports.value = sellers
   loading.value = false
 })
 </script>
@@ -74,24 +84,39 @@ onMounted(async () => {
       <div class="h-8 w-8 animate-spin rounded-full border-[3px] border-gray-200 border-t-primary-600" />
     </div>
 
-    <div v-else class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      <div
-        v-for="card in cards"
-        :key="card.label"
-        class="overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm"
-      >
-        <div class="flex items-center gap-4">
-          <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl" :class="card.bg">
-            <svg class="h-5 w-5" :class="card.iconColor" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" :d="card.icon" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-xs font-medium text-gray-500">{{ card.label }}</p>
-            <p class="mt-0.5 text-xl font-bold" :class="card.color">{{ card.value }}</p>
+    <template v-else>
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          v-for="card in cards"
+          :key="card.label"
+          class="overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm"
+        >
+          <div class="flex items-center gap-4">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl" :class="card.bg">
+              <svg class="h-5 w-5" :class="card.iconColor" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" :d="card.icon" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-gray-500">{{ card.label }}</p>
+              <p class="mt-0.5 text-xl font-bold" :class="card.color">{{ card.value }}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <AppCard v-if="dailySales.length > 0" title="Vendas Diárias — Últimos 30 dias">
+        <SalesLineChart :data="dailySales" />
+      </AppCard>
+
+      <div v-if="sellerReports.length > 0" class="grid grid-cols-1 gap-5 lg:grid-cols-5">
+        <AppCard title="Top Vendedores por Valor" class="lg:col-span-3">
+          <SellerBarChart :data="sellerReports" />
+        </AppCard>
+        <AppCard title="Distribuição de Comissões" class="lg:col-span-2">
+          <CommissionDoughnutChart :data="sellerReports" />
+        </AppCard>
+      </div>
+    </template>
   </div>
 </template>

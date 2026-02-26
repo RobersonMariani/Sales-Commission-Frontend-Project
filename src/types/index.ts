@@ -80,3 +80,10 @@ export interface SellerSalesReport {
   total_value: number
   total_commission: number
 }
+
+export interface DailySalesReport {
+  date: string
+  total_sales: number
+  total_value: number
+  total_commission: number
+}

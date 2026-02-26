@@ -1,5 +1,5 @@
 import api from '@/lib/api'
-import type { ApiResponse, SalesReport, SellerSalesReport } from '@/types'
+import type { ApiResponse, DailySalesReport, SalesReport, SellerSalesReport } from '@/types'
 
 export interface ReportQueryParams {
   start_date?: string
@@ -15,6 +15,11 @@ export const reportService = {
 
   async getSalesBySeller(params?: ReportQueryParams): Promise<SellerSalesReport[]> {
     const response = await api.get<{ data: SellerSalesReport[] }>('/reports/sales/by-seller', { params })
+    return response.data.data
+  },
+
+  async getDailySales(params?: ReportQueryParams): Promise<DailySalesReport[]> {
+    const response = await api.get<{ data: DailySalesReport[] }>('/reports/sales/daily', { params })
     return response.data.data
   },
 }
