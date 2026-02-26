@@ -5,7 +5,8 @@ Aplicação Vue.js para gerenciamento de vendas e comissões de vendedores, cons
 ## Funcionalidades
 
 - Autenticação JWT (registro, login, logout) com layout split-screen
-- Dashboard com resumo geral de vendas e comissões
+- Dashboard com resumo, gráficos de vendas diárias, ranking e distribuição de comissões
+- Relatórios com filtros por período, cards de métricas e tabela de ranking por vendedor
 - CRUD de vendedores com pesquisa rápida por nome/e-mail
 - Cadastro de vendas com taxa de comissão configurável (padrão 8,5%)
 - Listagem de vendas com filtro por vendedor e paginação
@@ -26,6 +27,7 @@ Aplicação Vue.js para gerenciamento de vendas e comissões de vendedores, cons
 | Rotas           | Vue Router 4                        |
 | Validação       | Zod 4                               |
 | HTTP Client     | Axios                               |
+| Gráficos        | Chart.js + vue-chartjs               |
 | Estilização     | Tailwind CSS 4                      |
 | Testes          | Vitest + Vue Test Utils             |
 | Lint / Format   | ESLint + Prettier                   |
@@ -97,11 +99,12 @@ Acesse: `http://localhost:3000` (Docker) ou `http://localhost:4173` (preview)
 |-------------------|------------------|--------------------------------------------------|
 | `/login`          | LoginPage        | Autenticação com e-mail e senha                  |
 | `/register`       | RegisterPage     | Criação de conta com indicador de força de senha  |
-| `/dashboard`      | DashboardPage    | Resumo geral de vendas e comissões               |
+| `/dashboard`      | DashboardPage    | Resumo, gráficos de vendas diárias e comissões   |
 | `/sellers`        | SellersListPage  | Listagem de vendedores com pesquisa e paginação  |
 | `/sellers/create` | CreateSellerPage | Cadastro de novo vendedor                        |
 | `/sales`          | SalesListPage    | Listagem de vendas com filtro por vendedor        |
 | `/sales/create`   | CreateSalePage   | Cadastro de venda com comissão configurável      |
+| `/reports`        | ReportsPage      | Relatórios com filtros, métricas e ranking       |
 
 ---
 
@@ -119,6 +122,9 @@ Acesse: `http://localhost:3000` (Docker) ou `http://localhost:4173` (preview)
 | `AppPagination`    | Paginação com navegação e contagem de resultados      |
 | `AppAlert`         | Alerta com variantes (success, warning, danger, info) |
 | `AppLogo`          | Logo reutilizável com 3 tamanhos (sm, md, lg)         |
+| `SalesLineChart`   | Gráfico de linha — vendas diárias (valor e comissão)  |
+| `SellerBarChart`   | Gráfico de barras horizontal — top vendedores         |
+| `CommissionDoughnutChart` | Gráfico de rosca — distribuição de comissões   |
 
 ---
 
@@ -163,6 +169,7 @@ src/
 ├── assets/css/          → Tailwind CSS com tema customizado (cores, fontes)
 ├── components/
 │   ├── ui/              → Componentes reutilizáveis (Button, Input, Card, Logo, etc.)
+│   ├── charts/          → Gráficos Chart.js (SalesLine, SellerBar, CommissionDoughnut)
 │   └── layout/          → Layout da aplicação (Header, Sidebar, Notifications)
 ├── composables/         → Composables Vue (useFormValidation)
 ├── lib/                 → Axios instance com interceptors JWT e 401
@@ -170,12 +177,13 @@ src/
 │   ├── auth/            → Login e Registro
 │   ├── dashboard/       → Dashboard com resumo
 │   ├── sellers/         → Listagem e cadastro de vendedores
-│   └── sales/           → Listagem e cadastro de vendas
+│   ├── sales/           → Listagem e cadastro de vendas
+│   └── reports/         → Relatórios com filtros e métricas
 ├── router/              → Vue Router com guards de autenticação
 ├── schemas/             → Schemas Zod para validação de formulários
-├── services/            → Serviços de API (authService, sellerService, saleService)
-├── stores/              → Pinia stores (auth, seller, sale, notification)
-└── types/               → Interfaces TypeScript (User, Seller, Sale, Pagination)
+├── services/            → Serviços de API (auth, seller, sale, report)
+├── stores/              → Pinia stores (auth, seller, sale, report, notification)
+└── types/               → Interfaces TypeScript (User, Seller, Sale, Report, Pagination)
 ```
 
 ### Fluxo de uma ação do usuário
