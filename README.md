@@ -13,20 +13,47 @@ Frontend Vue.js para o sistema de gerenciamento de comissões de vendas.
 - **Axios** (HTTP client)
 - **Tailwind CSS 4** (estilização)
 - **Vitest** (testes)
+- **Docker** (ambiente de desenvolvimento e produção)
 
 ## Pré-requisitos
 
-- Node.js 18+
-- API rodando em `http://localhost:8000`
+- Docker e Docker Compose
+- API rodando em `http://localhost:8000` (ver [Sales-Commission-API-Project](https://github.com/RobersonMariani/Sales-Commission-API-Project))
 
-## Instalação
+## Docker (recomendado)
+
+### Desenvolvimento (hot-reload)
+
+```bash
+# Subir a API primeiro (no diretório da API)
+docker compose up -d
+
+# Subir o frontend com hot-reload
+docker compose --profile dev up
+```
+
+Acesse: `http://localhost:5173`
+
+### Produção
+
+```bash
+docker compose --profile prod up -d
+```
+
+Acesse: `http://localhost:3000`
+
+A versão de produção usa Nginx para servir os arquivos estáticos e faz proxy de `/api` para a API automaticamente.
+
+## Sem Docker
+
+### Instalação
 
 ```bash
 npm install
 cp .env.example .env
 ```
 
-## Desenvolvimento
+### Desenvolvimento
 
 ```bash
 npm run dev
@@ -34,7 +61,7 @@ npm run dev
 
 Acesse: `http://localhost:5173`
 
-## Build
+### Build
 
 ```bash
 npm run build
