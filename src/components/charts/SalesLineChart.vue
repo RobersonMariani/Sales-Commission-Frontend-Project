@@ -66,8 +66,8 @@ const chartOptions = {
       titleFont: { size: 13 },
       bodyFont: { size: 12 },
       callbacks: {
-        label: (ctx: { dataset: { label?: string }; parsed: { y: number } }) => {
-          const value = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(ctx.parsed.y)
+        label: (ctx: { dataset: { label?: string }; parsed: { y: number | null } }) => {
+          const value = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(ctx.parsed.y ?? 0)
           return ` ${ctx.dataset.label}: ${value}`
         },
       },

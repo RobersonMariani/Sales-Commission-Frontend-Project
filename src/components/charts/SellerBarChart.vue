@@ -38,8 +38,8 @@ const chartOptions = {
       titleFont: { size: 13 },
       bodyFont: { size: 12 },
       callbacks: {
-        label: (ctx: { parsed: { x: number } }) => {
-          const value = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(ctx.parsed.x)
+        label: (ctx: { parsed: { x: number | null } }) => {
+          const value = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(ctx.parsed.x ?? 0)
           return ` ${value}`
         },
       },

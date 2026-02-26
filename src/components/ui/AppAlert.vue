@@ -11,7 +11,7 @@ withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{ dismiss: [] }>()
 
-const config: Record<string, { bg: string; icon: string }> = {
+const config: Record<NonNullable<Props['type']>, { bg: string; icon: string }> = {
   success: { bg: 'bg-emerald-50 border-emerald-200 text-emerald-800', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
   error: { bg: 'bg-red-50 border-red-200 text-red-800', icon: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z' },
   warning: { bg: 'bg-amber-50 border-amber-200 text-amber-800', icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z' },
