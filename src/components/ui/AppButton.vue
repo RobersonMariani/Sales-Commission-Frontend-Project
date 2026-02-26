@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  variant?: 'primary' | 'secondary' | 'danger' | 'success'
+  variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
   loading?: boolean
   disabled?: boolean
@@ -16,15 +16,20 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const variantClasses: Record<string, string> = {
-  primary: 'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500',
-  secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400',
-  danger: 'bg-danger-600 text-white hover:bg-red-700 focus:ring-danger-500',
-  success: 'bg-success-600 text-white hover:bg-green-700 focus:ring-success-500',
+  primary:
+    'bg-primary-600 text-white hover:bg-primary-500 active:bg-primary-700 focus-visible:ring-primary-500 shadow-md shadow-primary-600/20 hover:shadow-lg hover:shadow-primary-600/30',
+  secondary:
+    'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 active:bg-gray-100 focus-visible:ring-gray-400 shadow-sm',
+  danger:
+    'bg-danger-600 text-white hover:bg-red-500 active:bg-red-700 focus-visible:ring-danger-500 shadow-md shadow-danger-600/20',
+  success:
+    'bg-success-600 text-white hover:bg-green-500 active:bg-green-700 focus-visible:ring-success-500 shadow-md shadow-success-600/20',
+  ghost: 'text-gray-600 hover:bg-gray-100 active:bg-gray-200 focus-visible:ring-gray-400',
 }
 
 const sizeClasses: Record<string, string> = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-4 py-2 text-sm',
+  sm: 'px-3 py-1.5 text-xs',
+  md: 'px-4 py-2.5 text-sm',
   lg: 'px-6 py-3 text-base',
 }
 </script>
@@ -33,7 +38,7 @@ const sizeClasses: Record<string, string> = {
   <button
     :type="type"
     :disabled="disabled || loading"
-    class="inline-flex items-center justify-center gap-2 rounded-lg font-medium shadow-sm transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+    class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl font-semibold tracking-tight transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
     :class="[variantClasses[props.variant], sizeClasses[props.size]]"
   >
     <svg

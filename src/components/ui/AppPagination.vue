@@ -10,17 +10,17 @@ const emit = defineEmits<{ 'page-change': [page: number] }>()
 </script>
 
 <template>
-  <div v-if="meta.last_page > 1" class="flex items-center justify-between border-t border-gray-200 px-2 pt-4">
-    <p class="text-sm text-gray-600">
-      Mostrando <span class="font-medium">{{ meta.from }}</span> a
-      <span class="font-medium">{{ meta.to }}</span> de
-      <span class="font-medium">{{ meta.total }}</span> resultados
+  <div v-if="meta.last_page > 1" class="flex items-center justify-between border-t border-gray-100 px-2 pt-4">
+    <p class="text-xs text-gray-500">
+      <span class="font-medium text-gray-700">{{ meta.from }}-{{ meta.to }}</span>
+      de
+      <span class="font-medium text-gray-700">{{ meta.total }}</span>
     </p>
 
     <nav class="flex gap-1">
       <button
         :disabled="meta.current_page <= 1"
-        class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+        class="cursor-pointer rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 transition-all duration-200 hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
         @click="emit('page-change', meta.current_page - 1)"
       >
         Anterior
@@ -33,11 +33,11 @@ const emit = defineEmits<{ 'page-change': [page: number] }>()
             page === meta.last_page ||
             (page >= meta.current_page - 1 && page <= meta.current_page + 1)
           "
-          class="rounded-lg border px-3 py-1.5 text-sm transition-colors"
+          class="cursor-pointer rounded-lg border px-3 py-1.5 text-xs font-medium transition-all duration-200"
           :class="
             page === meta.current_page
-              ? 'border-primary-500 bg-primary-50 font-medium text-primary-700'
-              : 'border-gray-300 hover:bg-gray-50'
+              ? 'border-primary-500 bg-primary-600 text-white shadow-sm'
+              : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
           "
           @click="emit('page-change', page)"
         >
@@ -45,7 +45,7 @@ const emit = defineEmits<{ 'page-change': [page: number] }>()
         </button>
         <span
           v-else-if="page === meta.current_page - 2 || page === meta.current_page + 2"
-          class="px-1 py-1.5 text-sm text-gray-400"
+          class="px-1 py-1.5 text-xs text-gray-300"
         >
           ...
         </span>
@@ -53,7 +53,7 @@ const emit = defineEmits<{ 'page-change': [page: number] }>()
 
       <button
         :disabled="meta.current_page >= meta.last_page"
-        class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+        class="cursor-pointer rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 transition-all duration-200 hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
         @click="emit('page-change', meta.current_page + 1)"
       >
         Próximo
