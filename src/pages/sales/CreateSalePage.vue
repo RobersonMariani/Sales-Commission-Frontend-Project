@@ -10,6 +10,7 @@ import AppButton from '@/components/ui/AppButton.vue'
 import AppInput from '@/components/ui/AppInput.vue'
 import AppCurrencyInput from '@/components/ui/AppCurrencyInput.vue'
 import AppSelect from '@/components/ui/AppSelect.vue'
+import AppPercentInput from '@/components/ui/AppPercentInput.vue'
 import AppCard from '@/components/ui/AppCard.vue'
 import { AxiosError } from 'axios'
 
@@ -94,14 +95,10 @@ onMounted(() => {
           @blur="validateField('value')"
         />
 
-        <AppInput
+        <AppPercentInput
           v-model="form.commission_rate"
-          label="Taxa de Comissão (%)"
-          type="number"
-          step="0.01"
-          min="0"
-          max="100"
-          placeholder="8.50"
+          label="Taxa de Comissão"
+          placeholder="8,50"
           :error="errors.commission_rate"
           @blur="validateField('commission_rate')"
         />
