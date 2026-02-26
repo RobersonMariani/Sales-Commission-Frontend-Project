@@ -10,14 +10,16 @@ const emit = defineEmits<{ 'page-change': [page: number] }>()
 </script>
 
 <template>
-  <div v-if="meta.last_page > 1" class="flex items-center justify-between border-t border-gray-100 px-2 pt-4">
+  <div class="flex items-center justify-between border-t border-gray-100 px-2 pt-4">
     <p class="text-xs text-gray-500">
-      <span class="font-medium text-gray-700">{{ meta.from }}-{{ meta.to }}</span>
+      Mostrando
+      <span class="font-medium text-gray-700">{{ meta.from ?? 0 }}-{{ meta.to ?? 0 }}</span>
       de
       <span class="font-medium text-gray-700">{{ meta.total }}</span>
+      resultados
     </p>
 
-    <nav class="flex gap-1">
+    <nav v-if="meta.last_page > 1" class="flex gap-1">
       <button
         :disabled="meta.current_page <= 1"
         class="cursor-pointer rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 transition-all duration-200 hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
