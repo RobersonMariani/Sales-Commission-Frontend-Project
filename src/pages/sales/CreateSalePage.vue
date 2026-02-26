@@ -8,6 +8,7 @@ import { createSaleSchema, type CreateSaleInput } from '@/schemas/sale'
 import { useFormValidation } from '@/composables/useFormValidation'
 import AppButton from '@/components/ui/AppButton.vue'
 import AppInput from '@/components/ui/AppInput.vue'
+import AppCurrencyInput from '@/components/ui/AppCurrencyInput.vue'
 import AppSelect from '@/components/ui/AppSelect.vue'
 import AppCard from '@/components/ui/AppCard.vue'
 import { AxiosError } from 'axios'
@@ -83,10 +84,9 @@ onMounted(() => {
           @blur="validateField('seller_id')"
         />
 
-        <AppInput
+        <AppCurrencyInput
           v-model="form.value"
-          label="Valor da Venda (R$)"
-          type="number"
+          label="Valor da Venda"
           placeholder="0,00"
           :error="errors.value"
           @blur="validateField('value')"
