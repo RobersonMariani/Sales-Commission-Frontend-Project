@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
+import AppLogo from '@/components/ui/AppLogo.vue'
 
 const route = useRoute()
 
@@ -17,11 +18,7 @@ function isActive(routeName: string): boolean {
 <template>
   <aside class="flex h-full w-64 flex-col bg-gray-900">
     <div class="flex h-16 items-center gap-3 px-6">
-      <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-600 text-white shadow-lg shadow-primary-600/30">
-        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M2 20h20M5 20V10m5 10V4m5 16v-8m5 8V8" />
-        </svg>
-      </div>
+      <AppLogo size="sm" />
       <div>
         <span class="text-sm font-bold text-white">Sales Commission</span>
         <p class="text-[10px] text-gray-500">Sistema de Comissões</p>
